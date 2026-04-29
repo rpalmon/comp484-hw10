@@ -179,6 +179,22 @@ function setActivePet(petId) {
 
 // Create a new pet based on user input and add it to the pets array, then update the UI
 function createPetFromTabs() {
+  //Group Start
+  console.group('Create Pet');
+
+  //style for console for create pet from tab
+  const styles = 
+  `color: purple; 
+    font-weight: bold;
+    border: 5px solid purple;
+    padding: 4px;
+    border-radius: 4px;
+    background-color: #f0e0ff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+  `;
+  console.log('%c Creating a new pet from the tab interface...', styles);
+
   var suggestedName = 'Pet ' + (pets.length + 1);
   var petName = prompt('Name your new pet:', suggestedName);
 
@@ -187,13 +203,6 @@ function createPetFromTabs() {
   }
 
 
-/*
-.trim() is a jQuery method used to rfemove the whitespace from the beginning and end of a string
-example:
-var str = "   Hello World!   ";
-var trimmedStr = $.trim(str);
-console.log(trimmedStr); // Output: "Hello World!"
-*/  
   petName = $.trim(petName);
   if (!petName) {
     petName = suggestedName;
@@ -207,6 +216,9 @@ console.log(trimmedStr); // Output: "Hello World!"
   renderPetTabs();
   checkAndUpdatePetInfoInHtml();
   renderActivityLog();
+
+
+  console.groupEnd();
 }
 
 function renderActivityLog() {
