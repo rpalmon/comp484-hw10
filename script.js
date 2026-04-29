@@ -130,6 +130,9 @@ function getActivePet() {
 function persistPets() {
   localStorage.setItem('pets', JSON.stringify(pets));
   localStorage.setItem('active_pet_id', activePetId);
+  //console custom
+  console.log({action: 'Persisted pets to localStorage', pets: pets, activePetId: activePetId});
+  console.table(pets);
 }
 
 //display the pet tabs based on the current pets array and active pet ID
@@ -397,7 +400,6 @@ function clickedExerciseButton() {
 function checkAndUpdatePetInfoInHtml() {
   checkWeightAndHappinessBeforeUpdating();
   updatePetInfoInHtml();
-  persistPets();
 }
 
 // Ensure that weight and happiness values do not go below 0 before updating the HTML
