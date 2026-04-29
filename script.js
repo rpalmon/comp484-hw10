@@ -131,7 +131,19 @@ function persistPets() {
   localStorage.setItem('pets', JSON.stringify(pets));
   localStorage.setItem('active_pet_id', activePetId);
   //console custom
-  console.log({action: 'Persisted pets to localStorage', pets: pets, activePetId: activePetId});
+  // console.log({action: 'Persisted pets to localStorage', pets: pets, activePetId: activePetId});
+
+  const styles = 
+  `color: green; 
+   font-weight: bold; 
+   border: 5px solid green; 
+   padding: 4px; border-radius: 4px; 
+   background-color: #e0ffe0; 
+   padding: 30px;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   font-size: 15px;
+   `;
+  console.log('%c Pets state has been saved to localStorage:', styles);
   console.table(pets);
 }
 
