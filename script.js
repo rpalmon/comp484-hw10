@@ -81,39 +81,43 @@ function normalizePetImagePath(imagePath) {
 
 // Initialize the pet by loading from localstorage if it exists, or creating a new pet if not.
 function initializePetState() {
+  try {
   var storedPets = localStorage.getItem('pets');
   var storedActivePetId = localStorage.getItem('active_pet_id');
+  } catch (e) {
+    console.error('Error occurred while initializing pet state:', e);
+  } finally {
+    if (storedPets) {
+      pets = JSON.parse(storedPets) || [];
+    } else {
+      // Migrate old single-pet storage to the new multi-pet format.
+      var oldPetInfo = JSON.parse(localStorage.getItem('pet_info'));
+      var oldActivityLog = JSON.parse(localStorage.getItem('activity_log')) || [];
 
-  if (storedPets) {
-    pets = JSON.parse(storedPets) || [];
-  } else {
-    // Migrate old single-pet storage to the new multi-pet format.
-    var oldPetInfo = JSON.parse(localStorage.getItem('pet_info'));
-    var oldActivityLog = JSON.parse(localStorage.getItem('activity_log')) || [];
-
-    if (oldPetInfo) {
-      var migratedPet = createDefaultPet(oldPetInfo.name || 'My Pet Name');
-      migratedPet.weight = oldPetInfo.weight || 0;
-      migratedPet.happiness = oldPetInfo.happiness || 0;
-      migratedPet.activity_log = oldActivityLog;
-      pets = [migratedPet];
+      if (oldPetInfo) {
+        var migratedPet = createDefaultPet(oldPetInfo.name || 'My Pet Name');
+        migratedPet.weight = oldPetInfo.weight || 0;
+        migratedPet.happiness = oldPetInfo.happiness || 0;
+        migratedPet.activity_log = oldActivityLog;
+        pets = [migratedPet];
+      }
     }
-  }
 
-  if (!pets.length) {
-    pets = [createDefaultPet('My Pet Name')];
-  }
+    if (!pets.length) {
+      pets = [createDefaultPet('My Pet Name')];
+    }
 
-  pets.forEach(function(pet) {
-    pet.image = normalizePetImagePath(pet.image);
-  });
+    pets.forEach(function(pet) {
+      pet.image = normalizePetImagePath(pet.image);
+    });
 
-  activePetId = storedActivePetId;
-  if (!getActivePet()) {
-    activePetId = pets[0].id;
-  }
+    activePetId = storedActivePetId;
+    if (!getActivePet()) {
+      activePetId = pets[0].id;
+    }
 
-  persistPets();
+    persistPets();
+}
 }
 
 //gets the currently active pet object based on the activePetId, or returns null if not found
@@ -174,6 +178,9 @@ function renderPetTabs() {
 // Set the active pet based on the clicked tab and update the UI accordingly
 function setActivePet(petId) {
   activePetId = petId;
+  console.group('Set Active Pet');
+  console.log('Active pet changed to:', getActivePet()?.name || 'Unknown');
+  console.groupEnd();
   persistPets();
   renderPetTabs();
   checkAndUpdatePetInfoInHtml();
@@ -363,6 +370,7 @@ function getCurrentDateTime() {
 function clickedTreatButton() {
   var pet = getActivePet();
   if (!pet) {
+    console.warn('No active pet found. Cannot give treat.');
     return;
   }
 
@@ -377,6 +385,7 @@ function clickedTreatButton() {
 function clickedPlayButton() {
   var pet = getActivePet();
   if (!pet) {
+    console.warn('No active pet found. Cannot play with pet.');
     return;
   }
 
@@ -407,6 +416,7 @@ function clickedPlayButton() {
 function clickedExerciseButton() {
   var pet = getActivePet();
   if (!pet) {
+    console.warn('No active pet found. Cannot exercise pet.');
     return;
   }
 
