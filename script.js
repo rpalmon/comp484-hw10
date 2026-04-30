@@ -130,6 +130,9 @@ function getActivePet() {
 function persistPets() {
   localStorage.setItem('pets', JSON.stringify(pets));
   localStorage.setItem('active_pet_id', activePetId);
+
+  //good example of console.info
+  console.info(`Persisted pets to localStorage. Active Pet Name: ${getActivePet()?.name || 'Unknown'}`);
   //console custom
   // console.log({action: 'Persisted pets to localStorage', pets: pets, activePetId: activePetId});
 
