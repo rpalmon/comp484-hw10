@@ -177,8 +177,6 @@ function persistPets() {
 
   //good example of console.info
   console.info(`Persisted pets to localStorage. Active Pet Name: ${getActivePet()?.name || 'Unknown'}`);
-  //console custom
-  // console.log({action: 'Persisted pets to localStorage', pets: pets, activePetId: activePetId});
 
   const styles = 
   `color: green; 
@@ -447,6 +445,7 @@ function clickedPlayButton() {
     updateActivityLog('<error>Tried to play with pet, but weight is already at 0. No changes made.</error>');
     return false;
   }
+  console.log('Play button clicked. Updated happiness and weight for pet:', pet.name, 'Happiness:', pet.happiness, 'Weight:', pet.weight);
 
   checkAndUpdatePetInfoInHtml();
 }
@@ -468,6 +467,7 @@ function clickedExerciseButton() {
 
   pet.happiness -= exerciseHappiness;
   pet.weight -= exerciseWeight;
+  console.log('Exercise button clicked. Updated happiness and weight for pet:', pet.name, 'Happiness:', pet.happiness, 'Weight:', pet.weight);
   checkAndUpdatePetInfoInHtml();
   updateActivityLog('Exercised pet. <happiness-decreased>Happiness decreased by ' + exerciseHappiness + '</happiness-decreased>, <weight-decreased>Weight decreased by ' + exerciseWeight + '</weight-decreased>.');
 }
