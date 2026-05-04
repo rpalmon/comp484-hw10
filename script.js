@@ -18,6 +18,46 @@ places where .append() is used:
 
 */
 // Pet stat change constants
+
+/*
+Console methods used:
+Log Info
+  used in the following functions:
+- persistPets: to log when pets are persisted to localStorage, including the active pet's name.
+Log Warning
+  used in the following functions:
+- clickedTreatButton: to warn if no active pet is found when trying to give a treat.
+- clickedPlayButton: to warn if no active pet is found when trying to play, and to warn if trying to play when weight is already at 0.
+- clickedExerciseButton: to warn if no active pet is found when trying to exercise, and to warn if trying to exercise when weight is already at 0.
+Log Error
+  used in the following functions:
+- None (but could be used in the future for error handling)
+Log Table
+  used in the following functions:
+- persistPets: to display the current pets array in a table format in the console for easier debugging.
+Log Group
+  used in the following functions:
+- setActivePet: to group logs related to changing the active pet, including the new active pet's name.
+- createPetFromTabs: to group logs related to creating a new pet from the tab interface, including a styled log message when starting the creation process.
+Log Custom
+  used in the following functions:
+- persistPets: to log a custom message with styles when pets are persisted to localStorage.
+
+
+Messages logged by browser:
+Cause 404 network error
+Cause TypeError
+Cause Violation
+
+Filter Messages:
+Filter by log level
+Filter by text
+Filter by regular expression
+Filter by message source
+Filter by user messages
+*/
+
+
 var treatHappiness = 10;
 var treatWeight = 5;
 var playHappiness = 5;
